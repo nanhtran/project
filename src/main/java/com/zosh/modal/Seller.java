@@ -1,11 +1,16 @@
 package com.zosh.modal;
 
+import com.zosh.domain.AccountStatus;
+import com.zosh.domain.USER_ROLE;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.*;
 
 @Entity
@@ -32,5 +37,16 @@ public class Seller {
 
     @Embedded
     private BankDetails bankDetails = new BankDetails();
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Address pickupAddress = new Address();
+
+    private String GSTIN;
+
+    private USER_ROLE role = USER_ROLE.ROLE_SELLER;
+
+    private boolean isEmailVerified = false;
+
+    private AccountStatus accountStatus = AccountStatus.PENDING_VERIFICATION;
 
 }
