@@ -19,7 +19,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
+
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

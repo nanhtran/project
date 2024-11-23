@@ -1,12 +1,10 @@
 package com.zosh.modal;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.*;
 
 @Entity
@@ -15,28 +13,20 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-
-public class CartItem {
+public class VerificationCode {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    @JsonIgnore
-    private Cart cart;
+    private String otp;
 
-    @ManyToOne
-    private Product product;
+    private String email;
 
-    private String size;
+    @OneToOne
+    private User user;
 
-    private int quantity = 1;
-
-    private Integer mrpPrice;
-
-    private Integer sellingPrice;
-
-    private Long userId;
+    @OneToOne
+    private Seller seller;
 
 }

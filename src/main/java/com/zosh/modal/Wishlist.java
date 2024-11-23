@@ -1,12 +1,14 @@
 package com.zosh.modal;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import lombok.*;
 
 @Entity
@@ -15,28 +17,16 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-
-public class CartItem {
+public class Wishlist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    @JsonIgnore
-    private Cart cart;
+    @OneToOne
+    private User user;
 
-    @ManyToOne
-    private Product product;
-
-    private String size;
-
-    private int quantity = 1;
-
-    private Integer mrpPrice;
-
-    private Integer sellingPrice;
-
-    private Long userId;
+    @ManyToMany
+    private Set<Product> products = new HashSet<>();
 
 }

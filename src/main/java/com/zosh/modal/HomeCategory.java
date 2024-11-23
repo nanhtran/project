@@ -1,12 +1,11 @@
 package com.zosh.modal;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.zosh.domain.HomeCategorySection;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import lombok.*;
 
 @Entity
@@ -15,26 +14,14 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class OrderItem {
+public class HomeCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @JsonIgnore
-    @ManyToOne
-    private Order order;
-
-    @ManyToOne
-    private Product product;
-
-    private String size;
-
-    private int quantity;
-
-    private Integer mrpPrice;
-
-    private Integer sellingPrice;
-
-    private Long userId;
+    private String name;
+    private String image;
+    private String categoryId;
+    private HomeCategorySection section;
 
 }
