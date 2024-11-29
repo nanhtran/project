@@ -1,5 +1,9 @@
 package com.zosh.repository;
 
-public interface UserRepositoty {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.zosh.modal.User;
+
+public interface UserRepositoty extends JpaRepository<User, Long> {
 
 }
