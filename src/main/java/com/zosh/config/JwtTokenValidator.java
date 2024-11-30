@@ -26,11 +26,13 @@ import jakarta.servlet.http.HttpServletResponse;
 public class JwtTokenValidator extends OncePerRequestFilter {
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
         String jwt = request.getHeader("Authorization");
 
         // Bearer jwt
         if (jwt != null) {
+
             jwt = jwt.substring(7);
             try {
                 SecretKey key = Keys.hmacShaKeyFor(JWT_CONSTANT.SECRET_KEY.getBytes());
@@ -49,6 +51,7 @@ public class JwtTokenValidator extends OncePerRequestFilter {
             }
 
         }
+        filterChain.doFilter(request, response);
     }
 
 }

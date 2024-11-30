@@ -1,5 +1,7 @@
 package com.zosh.service;
 
-public class AuthService {
+import com.zosh.response.SignupRequest;
 
+public interface AuthService {
+    String createUser(SignupRequest req);
 }
