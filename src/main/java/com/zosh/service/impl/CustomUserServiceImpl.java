@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 import com.zosh.domain.USER_ROLE;
 import com.zosh.modal.Seller;
 import com.zosh.modal.User;
-import com.zosh.repository.SellerRepositoty;
-import com.zosh.repository.UserRepositoty;
+import com.zosh.repository.SellerRepository;
+import com.zosh.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,8 +22,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class CustomUserServiceImpl implements UserDetailsService {
 
-    private final UserRepositoty userRepositoty;
-    private final SellerRepositoty sellerRepositoty;
+    private final UserRepository userRepository;
+    private final SellerRepository sellerRepository;
     private static final String SELLER_PREFIX = "seller_";
 
     @Override
@@ -31,14 +31,14 @@ public class CustomUserServiceImpl implements UserDetailsService {
         if (username.startsWith(SELLER_PREFIX)) {
 
             String actualUsername = username.substring(SELLER_PREFIX.length());
-            Seller seller = sellerRepositoty.findByEmail(actualUsername);
+            Seller seller = sellerRepository.findByEmail(actualUsername);
 
             if (seller != null) {
                 return buildUserDetails(seller.getEmail(), seller.getPassword(), seller.getRole());
             }
 
         } else {
-            User user = userRepositoty.findByEmail(username);
+            User user = userRepository.findByEmail(username);
             if (user != null) {
                 return buildUserDetails(user.getEmail(), user.getPassword(), user.getRole());
 
@@ -52,7 +52,7 @@ public class CustomUserServiceImpl implements UserDetailsService {
             role = USER_ROLE.ROLE_CUSTOMER;
 
         List<GrantedAuthority> authorityList = new ArrayList<>();
-        authorityList.add(new SimpleGrantedAuthority("ROLE_" + role));
+        authorityList.add(new SimpleGrantedAuthority(role.toString()));
 
         return new org.springframework.security.core.userdetails.User(email, password, authorityList);
     }
