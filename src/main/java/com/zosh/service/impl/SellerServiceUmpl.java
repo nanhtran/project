@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.zosh.config.JwtProvider;
 import com.zosh.domain.AccountStatus;
 import com.zosh.domain.USER_ROLE;
+import com.zosh.exceptions.SellerException;
 import com.zosh.modal.Address;
 import com.zosh.modal.Seller;
 import com.zosh.repository.AddressRepository;
@@ -55,16 +56,16 @@ public class SellerServiceUmpl implements SellerService {
     }
 
     @Override
-    public Seller getSellerById(Long id) throws Exception {
-        return sellerRepository.findById(id).orElseThrow(() -> new Exception("seller not found with id: " + id));
+    public Seller getSellerById(Long id) throws SellerException {
+        return sellerRepository.findById(id).orElseThrow(() -> new SellerException("seller not found with id: " + id));
 
     }
 
     @Override
-    public Seller getSellerByEmail(String email) throws Exception {
+    public Seller getSellerByEmail(String email) throws SellerException {
         Seller seller = sellerRepository.findByEmail(email);
         if (seller == null) {
-            throw new Exception("seller not found...");
+            throw new SellerException("seller not found...");
 
         }
         return seller;

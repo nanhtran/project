@@ -151,18 +151,23 @@ public class AuthServiceImpl implements AuthService {
         return authResponse;
     }
 
-    private Authentication authenticate(String username, String otp) {
+    private Authentication authenticate(String username, String otp) throws Exception {
         UserDetails userDetails = customUserService.loadUserByUsername(username);
 
+        String SELLER_PREFIX = "seller_";
+        if (username.startsWith(SELLER_PREFIX)) {
+            username = username.substring(SELLER_PREFIX.length());
+        }
+
         if (userDetails == null) {
-            throw new BadCredentialsException("invalid username or password");
+            throw new BadCredentialsException("invalid username");
 
         }
 
         VerificationCode verificationCode = verificationCodeRepository.findByEmail(username);
 
         if (verificationCode == null || !verificationCode.getOtp().equals(otp)) {
-            throw new BadCredentialsException("wrong otp");
+            throw new Exception("wrong otp");
         }
         return new UsernamePasswordAuthenticationToken(
                 userDetails,

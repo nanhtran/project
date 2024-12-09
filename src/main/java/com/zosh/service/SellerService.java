@@ -3,6 +3,7 @@ package com.zosh.service;
 import java.util.List;
 
 import com.zosh.domain.AccountStatus;
+import com.zosh.exceptions.SellerException;
 import com.zosh.modal.Seller;
 
 public interface SellerService {
@@ -10,7 +11,7 @@ public interface SellerService {
 
     Seller createSeller(Seller seller) throws Exception;
 
-    Seller getSellerById(Long id) throws Exception;
+    Seller getSellerById(Long id) throws SellerException;
 
     Seller getSellerByEmail(String email) throws Exception;
 
