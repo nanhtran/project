@@ -62,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
             category3 = categoryRepository.save(category);
 
         }
-        int discountPrecentage = calculateDiscountPercentage(req.getMrpPrice(), req.getSellingPrice());
+        int discountPercentage = calculateDiscountPercentage(req.getMrpPrice(), req.getSellingPrice());
 
         Product product = new Product();
         product.setSeller(seller);
@@ -75,7 +75,7 @@ public class ProductServiceImpl implements ProductService {
         product.setImages(req.getImages());
         product.setMrpPrice(req.getMrpPrice());
         product.setSizes(req.getSizes());
-        product.setDiscountPercent(discountPrecentage);
+        product.setDiscountPercent(discountPercentage);
 
         return productRepository.save(product);
     }
@@ -86,8 +86,8 @@ public class ProductServiceImpl implements ProductService {
 
         }
         double discount = mrpPrice - sellingPrice;
-        double discountPrecentage = (discount / mrpPrice) * 100;
-        return (int) discountPrecentage;
+        double discountPercentage = (discount / mrpPrice) * 100;
+        return (int) discountPercentage;
     }
 
     @Override
@@ -119,7 +119,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> getAllProduct(String category, String brand, String colors, String sizes, Integer minPrice,
+    public Page<Product> getAllProduct(String category, String brand, String color, String sizes, Integer minPrice,
             Integer maxPrice, Integer minDiscount, String sort, String stock, Integer pageNumber) {
         Specification<Product> spec = (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
@@ -128,9 +128,9 @@ public class ProductServiceImpl implements ProductService {
                 Join<Product, Category> categoryJoin = root.join("category");
                 predicates.add(criteriaBuilder.equal(categoryJoin.get("categoryId"), category));
             }
-            if (colors != null && !colors.isEmpty()) {
+            if (color != null && !color.isEmpty()) {
                 // System.out.println("color"+colors);
-                predicates.add(criteriaBuilder.equal(root.get("color "), colors));
+                predicates.add(criteriaBuilder.equal(root.get("color "), color));
 
             }
             if (sizes != null && !sizes.isEmpty()) {

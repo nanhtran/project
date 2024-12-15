@@ -17,7 +17,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
+
 public class Cart {
 
     @Id
@@ -28,7 +28,7 @@ public class Cart {
     private User user;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CartItem> CartItem = new HashSet<>();
+    private Set<CartItem> CartItems = new HashSet<>();
 
     private double totalSellingPrice;
 
