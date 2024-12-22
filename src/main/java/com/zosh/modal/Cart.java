@@ -38,6 +38,6 @@ public class Cart {
 
     private int discount;
 
-    private String coupon;
+    private String couponCode;
 
 }

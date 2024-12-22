@@ -24,6 +24,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+// kiem tra
 @Table(name = "ordres")
 public class Order {
     @Id

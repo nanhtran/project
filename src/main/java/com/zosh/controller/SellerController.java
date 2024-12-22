@@ -26,6 +26,7 @@ import com.zosh.response.ApiResponse;
 import com.zosh.response.AuthResponse;
 import com.zosh.service.AuthService;
 import com.zosh.service.EmailService;
+import com.zosh.service.SellerReportService;
 import com.zosh.service.SellerService;
 import com.zosh.utils.OtpUtil;
 
@@ -40,6 +41,7 @@ public class SellerController {
     private final VerificationCodeRepository verificationCodeRepository;
     private final AuthService authService;
     private final EmailService emailService;
+    private final SellerReportService sellerReportService;
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> loginSeller(
@@ -101,14 +103,13 @@ public class SellerController {
 
     }
 
-    // @GetMapping("/report")
-    // public ResponseEntity<SellerReport> getSellerReport(
-    // @RequestHeader("Authorization") String jwt) throws Exception {
-    // String email = jwtProvider.getEmailFromJwtToken(jwt);
-    // Seller seller = sellerService.getSellerByEmail(email);
-    // SellerReport report = sellerReportService.getSellerReport(seller);
-    // return new ResponseEntity<>(report, HttpStatus.OK);
-    // }
+    @GetMapping("/report")
+    public ResponseEntity<SellerReport> getSellerReport(
+            @RequestHeader("Authorization") String jwt) throws Exception {
+        Seller seller = sellerService.getSellerProfile(jwt);
+        SellerReport report = sellerReportService.getSellerReport(seller);
+        return new ResponseEntity<>(report, HttpStatus.OK);
+    }
 
     @GetMapping
     public ResponseEntity<List<Seller>> getAllSellers(

@@ -35,6 +35,8 @@ public class Coupon {
 
     private LocalDate validityStarDate;
 
+    private LocalDate validityEndDate;
+
     private double minimumOrderValue;
 
     private boolean isActive = true;
